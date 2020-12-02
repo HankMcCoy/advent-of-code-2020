@@ -1,4 +1,4 @@
-import { getPasswordInfos, isValidPasswordInfo, part1, part2 } from './index'
+import { getPasswordInfos, isValidPasswordInfo } from './part1'
 
 test('parsing a single password info', () => {
 	const nums = [-2, 2000, 18, 20]
