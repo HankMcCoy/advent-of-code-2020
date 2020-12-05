@@ -10,7 +10,7 @@ export function run() {
 		.split('\n')
 		.filter((x) => x)
 
-	const highestSeatId = lines.map(convertPassToBinary).sort((a, b) => b - a)[0]
+	const highestSeatId = Math.max(...lines.map(convertPassToBinary))
 
 	console.log('Part 1:', highestSeatId)
 }
