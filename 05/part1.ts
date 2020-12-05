@@ -12,5 +12,5 @@ export function run() {
 
 	const highestSeatId = lines.map(convertPassToBinary).sort((a, b) => b - a)[0]
 
-	console.log('Part 2:', highestSeatId)
+	console.log('Part 1:', highestSeatId)
 }
