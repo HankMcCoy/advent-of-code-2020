@@ -1,18 +1,5 @@
 import { readFileSync } from 'fs'
 
-export const chunkArrayBy = (arr: string[], delim: string) =>
-	arr.reduce<string[][]>(
-		(acc, str, idx) => {
-			if (str === delim) {
-				if (idx < arr.length - 1) acc.push([])
-			} else {
-				acc[acc.length - 1].push(str)
-			}
-			return acc
-		},
-		[[]]
-	)
-
 export function run() {
 	const lines = readFileSync('./input.txt', { encoding: 'utf-8' }).split('\n')
 
