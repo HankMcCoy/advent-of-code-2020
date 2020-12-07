@@ -1,30 +1,32 @@
 import { readFileSync } from 'fs'
 
+const intersect = <T>(set1: Set<T>, set2: Set<T>): Set<T> =>
+	new Set([...set1].filter((x) => set2.has(x)))
+
+export const getAnswerGroups = (
+	arr: string[],
+	delim: string
+): Set<string>[][] =>
+	arr.reduce<Set<string>[][]>(
+		(acc, str, idx) => {
+			if (str === delim) {
+				if (idx < arr.length - 1) acc.push([])
+			} else {
+				acc[acc.length - 1].push(new Set([...str.split('')]))
+			}
+			return acc
+		},
+		[[]]
+	)
+
 export const getAnswerCount = (input: string): number => {
 	const lines = input.split('\n')
+	const groups = getAnswerGroups(lines, '')
 
-	const { sum } = lines.reduce<{ curGroup: Set<string> | null; sum: number }>(
-		({ curGroup, sum }, line, idx) => {
-			if (line === '' && curGroup)
-				return { curGroup: null, sum: sum + curGroup.size }
-
-			const answers = line.split('')
-			if (curGroup === null) {
-				curGroup = new Set<string>([...answers])
-			} else {
-				curGroup = new Set([...answers].filter((a) => curGroup?.has(a)))
-			}
-			return {
-				curGroup,
-				sum: idx === lines.length - 1 ? sum + curGroup.size : sum,
-			}
-		},
-		{
-			curGroup: null,
-			sum: 0,
-		}
-	)
-	return sum
+	return groups
+		.map((g) => g.reduce(intersect))
+		.map((a) => a.size)
+		.reduce((sum, c) => sum + c, 0)
 }
 
 export function run() {
