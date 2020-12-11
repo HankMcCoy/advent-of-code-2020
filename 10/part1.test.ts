@@ -14,8 +14,7 @@ test('works', () => {
 12
 4`
 			.split('\n')
-			.map((x) => parseInt(x, 10)),
-		5
+			.map((x) => parseInt(x, 10))
 	)
 	expect(result).toBe(35)
 })
